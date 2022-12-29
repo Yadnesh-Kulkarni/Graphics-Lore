@@ -83,8 +83,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="GLAD\src\glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelShader.cpp" />
+    <ClCompile Include="Model.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core.h" />
+    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="ModelShader.h" />
+    <ClInclude Include="ShaderSource.h" />
+    <ClInclude Include="Model.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
