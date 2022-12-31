@@ -1,9 +1,7 @@
 #include "Model.h"
-#include "ShaderSource.h"
 
 Model::Model()
 {
-	shader = new ModelShader();
 }
 
 Model::~Model()
@@ -22,17 +20,16 @@ Model::~Model()
 	{
 		glDeleteBuffers(1, &m_Ebo);
 	}
+
+	if (shader)
+	{
+		delete shader;
+	}
 }
 
 void Model::InitData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices)
 {
-	if (!shader->SetupShaders(vertexShaderSourceCode, fragmentShaderSourceCode))
-	{
-		std::cout << "Shader Setup Failed\n";
-		delete shader;
-		return;
-	}
-
+	shader = new ModelShader(this->m_vertexShader, this->m_fragmentShader, this->m_tessShader, this->m_geomShader);
 	// This part needs to be further abstracted
 	glGenVertexArrays(1, &m_Vao);
 	glBindVertexArray(m_Vao);
@@ -54,10 +51,6 @@ void Model::InitData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indice
 
 void Model::Draw()
 {
-	glUseProgram(shader->GetShaderProgram());
+	shader->Use();
 	glBindVertexArray(m_Vao);
-
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
-	glBindVertexArray(0);
 }

@@ -4,12 +4,24 @@
 class ModelShader
 {
 public:
+	ModelShader(std::string vertexShader, std::string fragmentShader, std::string tessShader, std::string geometryShader);
+
 	~ModelShader();
-	bool SetupShaders(const char* vertexShader, const char* fragmentShader);
-	GLuint GetShaderProgram() { return m_shaderProgram; };
+
+	void Use();
+
+	void setUniformBool (const std::string& name, bool val);
+	void setUniformInt  (const std::string& name, int val);
+	void setUniformFloat(const std::string& name, float val);
+	void setUniformVec4 (const std::string& name, float x, float y, float z, float w);
 private:
 	GLuint m_shaderProgram;
-	GLuint CompileShader(GLenum type, const char* source);
-	bool LinkShaders(std::vector<GLuint> shaders);
+	std::vector<GLuint> m_shaders;
+
+	bool		LinkShaders();
+	GLuint		CompileShader(GLenum type, const char* source);
+
+
+	void readShaderFromFile(const std::string& path, GLenum shaderType);
 };
 

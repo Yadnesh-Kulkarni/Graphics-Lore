@@ -1,8 +1,8 @@
 #include "Core.h"
-#include "Model.h"
+#include "Triangle.h"
 
-Drawable *triangle;
-Drawable* square;
+
+Triangle *triangle;
 
 std::vector<Drawable*> models;
 
@@ -58,12 +58,6 @@ int main(int argc, char** argv)
 	glfwSetFramebufferSizeCallback(window, resize);
 
 
-	std::vector<GLfloat> verts = { -0.5f ,  0.25f , 0.0f,
-								   -0.75f, -0.25f , 0.0f,
-								   -0.25f, -0.25f , 0.0f };
-
-	std::vector<GLuint> indices = { 0 , 1 , 2 };
-
 	std::vector<GLfloat> verts1 = { 0.5f,  0.5f, 0.0f,  // top right
 									0.5f, -0.5f, 0.0f,  // bottom right
 								   -0.5f, -0.5f, 0.0f,  // bottom left
@@ -75,15 +69,13 @@ int main(int argc, char** argv)
 		1, 2, 3   // second Triangle
 	};
 
-	triangle = new Model();
-	triangle->InitData(verts, indices);
+	triangle = new Triangle();
+	triangle->SetVertexShader("vShader.glsl");
+	triangle->SetFragmentShader("fShader.glsl");
+	triangle->InitData(verts1, indices1);
 
 	models.push_back(triangle);
 
-	square = new Model();
-	square->InitData(verts1, indices);
-
-	models.push_back(square);
 
 	while (!glfwWindowShouldClose(window))
 	{

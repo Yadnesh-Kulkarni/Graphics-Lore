@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Models">
       <UniqueIdentifier>{aa8be09e-39cc-491c-ba94-9013672aa12f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\DefaultShaders">
+      <UniqueIdentifier>{abb7921d-72e7-421c-a100-6ab6b25b45e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -39,6 +42,9 @@
     <ClCompile Include="Drawable.cpp">
       <Filter>Source Files\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -50,11 +56,25 @@
     <ClInclude Include="ModelShader.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderSource.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="Drawable.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vShader.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fShader.glsl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="defaultFragmentShader.glsl">
+      <Filter>Resource Files\DefaultShaders</Filter>
+    </None>
+    <None Include="defaultVertexShader.glsl">
+      <Filter>Resource Files\DefaultShaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
