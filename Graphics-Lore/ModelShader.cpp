@@ -86,6 +86,18 @@ void ModelShader::setUniformVec4(const std::string& name, float x, float y, floa
 	glUniform4f(loc, x, y, z, w);
 }
 
+void ModelShader::setUniformMat4(const std::string& name, glm::mat4 val)
+{
+	int loc = glGetUniformLocation(m_shaderProgram, name.c_str());
+	if (loc == -1)
+	{
+		std::cout << __FUNCTION__ << " : " << name << " does not exist" << std::endl;
+		return;
+	}
+
+	glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(val));
+}
+
 GLuint ModelShader::CompileShader(GLenum type, const char* source)
 {
 	GLuint shader = glCreateShader(type);
@@ -113,6 +125,8 @@ bool ModelShader::LinkShaders()
 	}
 	
 	glBindAttribLocation(m_shaderProgram, Attribute::VERTEX_ATTRIB, "vPosition");
+	glBindAttribLocation(m_shaderProgram, Attribute::VERTEX_COLOR, "vColor");
+	glBindAttribLocation(m_shaderProgram, Attribute::VERTEX_TEXTURE, "vTex");
 
 	int success;
 	char infoLog[512];

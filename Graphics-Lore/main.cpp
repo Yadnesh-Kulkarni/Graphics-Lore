@@ -1,6 +1,8 @@
 #include "Core.h"
 #include "Triangle.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 Triangle *triangle;
 
@@ -22,7 +24,7 @@ void resize(GLFWwindow* window, int width, int height)
 void render(GLFWwindow* window)
 {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	for (auto& model : models)
 	{
@@ -57,22 +59,126 @@ int main(int argc, char** argv)
 
 	glfwSetFramebufferSizeCallback(window, resize);
 
+									// Vertices				  
+	std::vector<GLfloat> verts = {  
+		-0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
 
-	std::vector<GLfloat> verts1 = { 0.5f,  0.5f, 0.0f,  // top right
-									0.5f, -0.5f, 0.0f,  // bottom right
-								   -0.5f, -0.5f, 0.0f,  // bottom left
-								   -0.5f,  0.5f, 0.0f   // top left 
+		-0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,
+
+		-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f, -0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+
+		-0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f, -0.5f,
+		 0.5f, -0.5f,  0.5f,
+		 0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f,  0.5f,
+		-0.5f, -0.5f, -0.5f,
+
+		-0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f, -0.5f,
+		 0.5f,  0.5f,  0.5f,
+		 0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f,  0.5f,
+		-0.5f,  0.5f, -0.5f,
 	};
 
-	std::vector<GLuint> indices1 = {  // note that we start from 0!
-		0, 1, 3,  // first Triangle
-		1, 2, 3   // second Triangle
+	std::vector<GLfloat> colors = {
+		1.0f,  0.0f,	0.0f,
+		0.0f,  1.0f,	0.0f,
+		0.0f,  0.0f,	1.0f,
+		1.0f,  1.0f,	1.0f
 	};
+
+	std::vector<GLfloat> texture = {
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		1.0f, 0.0f,
+		1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 0.0f,
+
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f,
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+		0.0f, 1.0f,
+
+		0.0f, 1.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f,
+		1.0f, 0.0f,
+		0.0f, 0.0f,
+		0.0f, 1.0f
+	};
+
+	std::vector<GLuint> indices = {  // note that we start from 0!
+		0, 1, 2,  // first triangle
+		0, 1, 3   // second triangle
+	};
+
+	/*std::vector<GLfloat> vertices = {
+	  
+	};*/
 
 	triangle = new Triangle();
+	
+	triangle->SetVertices(verts);
+	//triangle->SetColors(colors);
+	triangle->SetTexels(texture);
+	//triangle->SetIndices(indices);
+	
 	triangle->SetVertexShader("vShader.glsl");
 	triangle->SetFragmentShader("fShader.glsl");
-	triangle->InitData(verts1, indices1);
+
+
+	triangle->SetTexture("container.jpg", GL_TEXTURE0);
+	triangle->SetTexture("test.jpg", GL_TEXTURE1);
+	triangle->Initialize();
+	triangle->InitData();
 
 	models.push_back(triangle);
 

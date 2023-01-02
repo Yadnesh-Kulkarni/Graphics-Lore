@@ -14,6 +14,7 @@ public:
 	void setUniformInt  (const std::string& name, int val);
 	void setUniformFloat(const std::string& name, float val);
 	void setUniformVec4 (const std::string& name, float x, float y, float z, float w);
+	void setUniformMat4(const std::string& name, glm::mat4 val);
 private:
 	GLuint m_shaderProgram;
 	std::vector<GLuint> m_shaders;

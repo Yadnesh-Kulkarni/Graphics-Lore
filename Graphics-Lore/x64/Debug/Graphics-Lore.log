@@ -1,2 +1,7 @@
-﻿  main.cpp
+﻿  Drawable.cpp
+  Model.cpp
+  Triangle.cpp
+  main.cpp
+  Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Graphics-Lore.vcxproj -> C:\Yadnesh\Code Repo\LOGL\Graphics-Lore\x64\Debug\Graphics-Lore.exe

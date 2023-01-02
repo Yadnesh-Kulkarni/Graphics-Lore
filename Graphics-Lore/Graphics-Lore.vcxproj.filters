@@ -25,6 +25,9 @@
     <Filter Include="Resource Files\DefaultShaders">
       <UniqueIdentifier>{abb7921d-72e7-421c-a100-6ab6b25b45e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Models\Data">
+      <UniqueIdentifier>{ce7d2373-15c4-4efd-871d-101cc484a5ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,6 +48,9 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -60,6 +66,12 @@
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

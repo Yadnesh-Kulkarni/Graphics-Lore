@@ -5,15 +5,33 @@
 class Drawable
 {
 public:
-	virtual void InitData(std::vector<GLfloat>& vertices, std::vector<GLuint>& indices) = 0;
-	virtual void Draw() = 0;
+	Drawable();
+	~Drawable();
+	virtual void InitData();
+	virtual void Draw();
+
+	void SetVertices(std::vector<GLfloat>& vertices) { m_vertices = vertices; }
+	void SetColors(std::vector<GLfloat>& colors) { m_color = colors; }
+	void SetTexels(std::vector<GLfloat>& tex) { m_tex = tex; }
+	void SetIndices(std::vector<GLuint>& indices) { m_indices = indices; }
 
 protected:
 
 	GLuint m_Vao;
-	GLuint m_Vbo;
+	std::vector<GLuint> m_Vbo;
 	GLuint m_Ebo;
 
 	ModelShader* shader;
+
+	std::vector<GLfloat> m_vertices;
+	std::vector<GLfloat> m_color;
+	std::vector<GLfloat> m_tex;
+	std::vector<GLuint> m_indices;
+
+private:
+	void InitVertices();
+	void InitColor();
+	void InitTexture();
+	void InitIndices();
 };
 
